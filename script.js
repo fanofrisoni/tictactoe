@@ -23,12 +23,12 @@ function removeLabelUp () {
 
 function vsAI () {
   addLabelUp()
-  document.getElementById('labelvs').innerHTML = 'Player VS. AI';
+  document.getElementById('labelvs').innerHTML = 'Player VS AI';
 }
 
 function vsPlayer () {
   addLabelUp()
-  document.getElementById('labelvs').innerHTML = 'Player VS. Player';
+  document.getElementById('labelvs').innerHTML = 'Player VS Player';
 }
 
 document.getElementById('playerbutton').onclick = vsPlayer;
