@@ -10,21 +10,30 @@ function addLabelUp () {
   sleep(300).then(() => {
     document.getElementById('main').classList.remove('invisible')
   });
-  console.log('labelup')
 }
 function removeLabelUp () {
   sleep(50).then(() => {
     document.getElementById('main').classList.add('invisible')
-    sleep(20)
     document.getElementById('header').classList.remove('labelup')
     document.getElementById('playlabel').classList.remove('invisible')
     document.getElementById('playerbutton').classList.remove('invisible')
     document.getElementById('aibutton').classList.remove('invisible')
   });
-  console.log('labeldown')
 }
 
-document.getElementById('playerbutton').onclick = addLabelUp;
-document.getElementById('aibutton').onclick = addLabelUp;
+function vsAI () {
+  addLabelUp()
+  document.getElementById('labelvs').innerHTML = 'Player VS. AI';
+}
+
+function vsPlayer () {
+  addLabelUp()
+  document.getElementById('labelvs').innerHTML = 'Player VS. Player';
+}
+
+document.getElementById('playerbutton').onclick = vsPlayer;
+
+document.getElementById('aibutton').onclick = vsAI;
+
 document.getElementById('backbutton').onclick = removeLabelUp;
 
