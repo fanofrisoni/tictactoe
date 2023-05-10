@@ -9,6 +9,13 @@ var playing ;
 
 let gameboard = [[9, 9, 9],[9, 9, 9],[9, 9, 9]];
 
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+
 //PLAYER VS PLAYER PLAYER VS PLAYER VS PLAYER PLAYER//PLAYER VS PLAYER PLAYER VS PLAYER VS PLAYER PLAYER//PLAYER VS PLAYER PLAYER VS PLAYER VS PLAYER PLAYER//PLAYER VS PLAYER PLAYER VS PLAYER VS PLAYER PLAYER
 const startPVP = () => {
   gameboard = [[9, 9, 9],[9, 9, 9],[9, 9, 9]];
@@ -43,7 +50,10 @@ const startPVP = () => {
         } 
         if(plays==9){
           game.checkWinner(gridsquares[i]);
-          game.endDraw();
+          if(!winner){
+            game.endDraw();
+          }
+          
         }
       })
     }
@@ -184,16 +194,27 @@ const startAI = () => {
           gameAI.putXAI(gridsquares[i]);
           player = !player
           gameAI.checkWinnerAI(gridsquares[i]);
-        } else if(!player && gridsquares[i].classList.contains('selectable') && !winner) {
-          gameAI.putOAI(gridsquares[i]);
+        } 
+        if(!player && !winner && plays<9) {
+          let x, y;
+          do {
+            x = Math.floor(Math.random()*(3-0));
+            y = Math.floor(Math.random()*(3-0));
+          } while (!document.querySelector(`[x='${x}'][y='${y}']`).classList.contains('selectable') && !winner)
+          
+          console.log(x,y)
+          gameAI.putOAI(document.querySelector(`[x='${x}'][y='${y}']`));
           player = !player
-          gameAI.checkWinnerAI(gridsquares[i]);
+          gameAI.checkWinnerAI(document.querySelector(`[x='${x}'][y='${y}']`));
         } 
         if(plays==9){
           gameAI.checkWinnerAI(gridsquares[i]);
-          gameAI.endDrawAI();
+          if(!winner){
+            gameAI.endDrawAI();
+          }
         }
       })
+      
     }
   } else {
     return
